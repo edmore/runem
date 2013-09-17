@@ -13,7 +13,7 @@ func run(s string) {
 	os.Chdir(s)
 	out, err := exec.Command("go", "test").Output()
 	if err != nil {
-		log.Fatal("No test files...shame on you!")
+		log.Print("No test files...shame on you!")
 	}
 	fmt.Printf("%s", out)
 	os.Chdir("..")
