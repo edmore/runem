@@ -9,6 +9,7 @@ import (
 )
 
 func run(s string) {
+	fmt.Printf("Package : %s\n", s)
 	os.Chdir(s)
 	out, err := exec.Command("go", "test").Output()
 	if err != nil {
