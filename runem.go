@@ -9,11 +9,11 @@ import (
 )
 
 func run(s string) {
-	fmt.Printf("\033[1m[ Package : %s ]\033[0m\n", s)
+	fmt.Printf("\033[1m[ %s ]\033[0m\n", s)
 	os.Chdir(s)
 	out, err := exec.Command("go", "test").Output()
 	if err != nil {
-		log.Fatal("No test files...nothing to see here!")
+		log.Fatal("No test files...shame on you!")
 	}
 	fmt.Printf("%s", out)
 	os.Chdir("..")
