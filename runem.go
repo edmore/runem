@@ -26,12 +26,10 @@ func main() {
 		fmt.Println(err)
 	}
 	cmd.Start()
-
 	scanner := bufio.NewScanner(stdout)
 	for scanner.Scan() {
 		run(scanner.Text())
 	}
-
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
