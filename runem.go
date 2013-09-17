@@ -22,7 +22,11 @@ func runTest(s string) {
 }
 
 func main() {
-	cmd := exec.Command("bash", "-c", "ls -al | grep '^d' | awk '{print $9}' | egrep '(^[.]?$|^[a-zA-Z]*$)'")
+	cmd_string := `ls -al |\
+                       grep '^d' |\
+                       awk '{print $9}' |\
+                       egrep '(^[.]?$|^[a-zA-Z]*$)'`
+	cmd := exec.Command("bash", "-c", cmd_string)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		fmt.Println(err)
