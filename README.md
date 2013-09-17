@@ -1,1 +1,1 @@
-Run all my Go(lang) Tests
+Run all my Go(lang) tests from a root project directory
