@@ -8,7 +8,7 @@ import (
 	"os/exec"
 )
 
-func run(s string) {
+func runTest(s string) {
 	fmt.Printf("\033[1m[ %s ]\033[0m\n", s)
 	os.Chdir(s)
 	out, err := exec.Command("go", "test").Output()
@@ -28,7 +28,7 @@ func main() {
 	cmd.Start()
 	scanner := bufio.NewScanner(stdout)
 	for scanner.Scan() {
-		run(scanner.Text())
+		runTest(scanner.Text())
 	}
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
