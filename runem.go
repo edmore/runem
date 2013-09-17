@@ -16,11 +16,13 @@ func runTest(s string) {
 		log.Print("No test files...shame on you!")
 	}
 	fmt.Printf("%s", out)
-	os.Chdir("..")
+	if s != "." {
+		os.Chdir("..")
+	}
 }
 
 func main() {
-	cmd := exec.Command("bash", "-c", "ls -l | grep '^d' | awk '{print $9}'")
+	cmd := exec.Command("bash", "-c", "ls -al | grep '^d' | awk '{print $9}' | egrep '(^[.]?$|^[a-zA-Z]*$)'")
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		fmt.Println(err)
