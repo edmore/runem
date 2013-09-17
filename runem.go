@@ -8,6 +8,16 @@ import (
 	"os/exec"
 )
 
+func run(s string) {
+	os.Chdir(s)
+	out, err := exec.Command("go", "test").Output()
+	if err != nil {
+		log.Fatal("No test files...nothing to see here!")
+	}
+	fmt.Printf("%s", out)
+	os.Chdir("..")
+}
+
 func main() {
 	cmd := exec.Command("bash", "-c", "ls -l | grep '^d' | awk '{print $9}' > gotests")
 	cmd.Run()
@@ -21,7 +31,8 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		fmt.Println(scanner.Text())
+		run(scanner.Text())
+
 	}
 
 	if err := scanner.Err(); err != nil {
