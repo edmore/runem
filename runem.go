@@ -20,20 +20,16 @@ func run(s string) {
 }
 
 func main() {
-	cmd := exec.Command("bash", "-c", "ls -l | grep '^d' | awk '{print $9}' > gotests")
-	cmd.Run()
-
-	file, err := os.Open("gotests")
+	cmd := exec.Command("bash", "-c", "ls -l | grep '^d' | awk '{print $9}'")
+	stdout, err := cmd.StdoutPipe()
 	if err != nil {
-		fmt.Println("Failed opening file.")
-		return
+		fmt.Println(err)
 	}
-	defer file.Close()
+	cmd.Start()
 
-	scanner := bufio.NewScanner(file)
+	scanner := bufio.NewScanner(stdout)
 	for scanner.Scan() {
 		run(scanner.Text())
-
 	}
 
 	if err := scanner.Err(); err != nil {
