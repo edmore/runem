@@ -6,13 +6,27 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"regexp"
+)
+
+const (
+	Reset  = "\x1b[0m"
+	Bright = "\x1b[1m"
+	FgRed  = "\x1b[31m"
 )
 
 func runTest(s string) {
-	fmt.Printf("\033[1m[ %s ]\033[0m\n", s)
+	fmt.Printf(Bright+"[ %s ]"+Reset+"\n", s)
 	os.Chdir(s)
+
 	out, _ := exec.Command("go", "test").Output()
-	fmt.Printf("%s", out)
+	r, _ := regexp.Compile("FAIL")
+	if r.Match(out) {
+		fmt.Printf(FgRed+"%s"+Reset, out)
+	} else {
+		fmt.Printf("%s", out)
+	}
+
 	if s != "." {
 		os.Chdir("..")
 	}
