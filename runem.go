@@ -11,10 +11,7 @@ import (
 func runTest(s string) {
 	fmt.Printf("\033[1m[ %s ]\033[0m\n", s)
 	os.Chdir(s)
-	out, err := exec.Command("go", "test").Output()
-	if err != nil {
-		log.Print("No test files...shame on you!")
-	}
+	out, _ := exec.Command("go", "test").Output()
 	fmt.Printf("%s", out)
 	if s != "." {
 		os.Chdir("..")
