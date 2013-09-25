@@ -1,3 +1,5 @@
+// Runem - tool for running all your tests from a project root directory.
+
 package main
 
 import (
